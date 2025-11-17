@@ -7,6 +7,7 @@ WORKDIR /app
 # 3. Copiamos solo los archivos necesarios para construir
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+RUN chmod +x ./mvnw
 
 # 4. Descargamos las dependencias (esto es un paso de caché, es rápido)
 RUN ./mvnw dependencies
