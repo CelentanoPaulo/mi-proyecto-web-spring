@@ -7,17 +7,16 @@ WORKDIR /app
 # 3. Copiamos solo los archivos necesarios para construir
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN chmod +x ./mvnw
 
-# 4. Descargamos las dependencias (esto es un paso de caché, es rápido)
-RUN ./mvnw dependencies
+# 4. Damos permisos de ejecución (ESTO ESTÁ BIEN)
+RUN chmod +x ./mvnw
 
 # 5. Copiamos el resto de tu código fuente (el 'src')
 COPY src ./src
 
 # 6. Construimos el proyecto (corremos "mvn clean package")
+#    (Esta línea YA DESCARGA las dependencias)
 RUN ./mvnw clean package -DskipTests
 
 # 7. Le decimos a Render cuál es el comando final para arrancar
-#    (Asegúrate que el nombre del .jar coincida con tu pom.xml)
 CMD ["java", "-jar", "target/mi-proyecto-web-0.0.1-SNAPSHOT.jar"]
