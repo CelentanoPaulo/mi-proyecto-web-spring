@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller // Le dice a Spring: "Esta clase maneja URLs"
 public class PersonaController {
@@ -27,8 +28,8 @@ public class PersonaController {
     public String mostrarPaginaPrincipal(Model model) {
         
         // 1. Buscamos todas las personas guardadas en la DB
-        List<Persona> personas = personaRepository.findAll();
-        
+        //List<Persona> personas = personaRepository.findAll();
+        List<Persona> personas = personaRepository.findAllByOrderByIdAsc();
         // 2. Las "pasamos" al HTML para que las pueda mostrar en la lista
         model.addAttribute("personas", personas);
         
@@ -55,5 +56,39 @@ public class PersonaController {
         // 2. Redirigimos al usuario de vuelta a la página principal ("/")
         //    para que vea la lista actualizada.
         return "redirect:/";
+    }
+
+    /*
+ * MÉTODO PARA ELIMINAR UNA PERSONA
+ * @GetMapping("/eliminar/{id}") -> "Cuando alguien visite la URL /eliminar/..."
+ * @PathVariable Long id -> Captura el número (ID) que viene en la URL.
+ */
+@GetMapping("/eliminar/{id}")
+public String eliminarPersona(@PathVariable Long id) {
+
+    // 1. Usamos el repositorio para borrar la persona por su ID
+    personaRepository.deleteById(id);
+
+    // 2. Redirigimos al usuario de vuelta a la página principal ("/")
+    return "redirect:/";
+}
+
+/*
+     * MÉTODO PARA MOSTRAR EL FORMULARIO DE EDICIÓN
+     * @GetMapping("/editar/{id}") -> "Cuando alguien visite la URL /editar/..."
+     */
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+        
+        // 1. Buscamos la persona en la base de datos por su ID
+        //    findById() devuelve un "Optional", por eso usamos .get()
+        //    (En un proyecto real, deberíamos chequear si existe)
+        Persona persona = personaRepository.findById(id).get();
+        
+        // 2. Pasamos esa persona al modelo para "rellenar" el formulario
+        model.addAttribute("persona", persona);
+        
+        // 3. Devolvemos el nombre del NUEVO archivo html que creamos
+        return "editar-persona"; 
     }
 }

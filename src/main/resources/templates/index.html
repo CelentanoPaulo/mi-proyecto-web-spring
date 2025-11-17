@@ -41,6 +41,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +50,14 @@
                 <td th:text="${p.nombre}"></td>
                 <td th:text="${p.apellido}"></td>
                 <td th:text="${p.dni}"></td>
+                <td>
+                    <a th:href="@{/editar/{id}(id=${p.id})}" class="btn-editar">
+                    Editar
+                    </a>
+                    <a th:href="@{/eliminar/{id}(id=${p.id})}" class="btn-eliminar">
+                     Eliminar
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

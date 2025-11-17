@@ -1,12 +1,15 @@
 package com.ejemplojava.mi_proyecto_web.repository;
 
 import com.ejemplojava.mi_proyecto_web.model.Persona;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository // Le dice a Spring: "Esto es un componente para manejar datos"
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
-    
+    List<Persona> findAllByOrderByIdAsc();
     // JpaRepository<ClaseDelModelo, TipoDeDatoDelID>
     // JpaRepository<Persona, Long>
 

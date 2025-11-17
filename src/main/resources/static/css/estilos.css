@@ -116,3 +116,31 @@ tr:hover {
 td {
     color: #555;
 }
+
+.btn-eliminar {
+        background-color: #e74c3c; /* Color rojo */
+        color: white;
+        padding: 8px 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-eliminar:hover {
+        background-color: #c0392b; /* Rojo más oscuro */
+    }
+ .btn-editar {
+    background-color: #3498db; /* Color azul (igual que el botón Cargar) */
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px; /* Para separarlo del botón rojo */
+    transition: background-color 0.3s;
+}
+
+.btn-editar:hover {
+    background-color: #2980b9; /* Azul más oscuro */
+}   
